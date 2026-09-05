@@ -1,0 +1,371 @@
+/* =========================================================
+   Design tokens
+   ========================================================= */
+:root{
+  --paper:      #F2ECDF;
+  --paper-soft: #EAE2D0;
+  --ink:        #22201B;
+  --ink-soft:   #57534A;
+  --ink-faint:  #8A8477;
+  --rule:       #D9D0BC;
+  --moss:       #46583A;
+  --ochre:      #A97A26;
+
+  --serif-display: "Fraunces", "Iowan Old Style", serif;
+  --serif-body:    "Source Serif 4", Georgia, serif;
+  --mono:          "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --max: 68ch;
+  --gutter: clamp(24px, 6vw, 96px);
+}
+
+*{ box-sizing: border-box; }
+
+html{
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+body{
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{
+  color: var(--moss);
+  text-decoration: none;
+  background-image: linear-gradient(var(--moss), var(--moss));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 220ms ease;
+}
+a:hover, a:focus-visible{
+  background-size: 100% 1px;
+}
+
+:focus-visible{
+  outline: 2px solid var(--ochre);
+  outline-offset: 3px;
+}
+
+h1, h2, h3{
+  font-family: var(--serif-display);
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+
+p{ margin: 0 0 1em; }
+p:last-child{ margin-bottom: 0; }
+
+sup{ font-size: 0.6em; }
+
+.muted{ color: var(--ink-soft); }
+
+/* subtle paper grain, purely decorative */
+.grain{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px var(--gutter);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.mark{
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: none;
+}
+
+.main-nav{
+  display: flex;
+  gap: clamp(16px, 3vw, 32px);
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.main-nav a{ color: var(--ink-soft); }
+.main-nav a:hover{ color: var(--ink); }
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: center;
+  padding: clamp(48px, 9vw, 108px) var(--gutter) clamp(56px, 8vw, 96px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.eyebrow{
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-faint);
+  margin: 0 0 18px;
+}
+
+.hero h1{
+  font-size: clamp(40px, 7vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+
+.role{
+  font-family: var(--serif-body);
+  font-style: italic;
+  font-size: clamp(17px, 2vw, 20px);
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin-bottom: 22px;
+}
+
+.lede{
+  max-width: var(--max);
+  color: var(--ink);
+}
+
+.hero-links{
+  display: flex;
+  gap: 22px;
+  margin-top: 28px;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.hero-canvas-wrap{
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 420px;
+  justify-self: end;
+}
+
+#node-canvas{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* =========================================================
+   Section scaffold
+   ========================================================= */
+.section{
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 64px);
+  padding: clamp(40px, 7vw, 72px) var(--gutter);
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-label span{
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-faint);
+  position: sticky;
+  top: 90px;
+}
+
+.section-body{ max-width: 760px; }
+
+.section-body p{ max-width: var(--max); }
+
+.section-intro{
+  color: var(--ink-soft);
+  margin-bottom: 28px !important;
+}
+
+/* =========================================================
+   Tag lists (skills)
+   ========================================================= */
+.tag-list{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding: 0;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.tag-list li{
+  padding: 5px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink-soft);
+}
+
+.tag-list.small{
+  font-size: 12.5px;
+  margin: 14px 0;
+}
+.tag-list.small li{ padding: 3px 9px; }
+
+/* =========================================================
+   Work / projects
+   ========================================================= */
+.work-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.work-item{
+  display: grid;
+  grid-template-columns: 56px minmax(0, 220px) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 40px);
+  align-items: start;
+  padding: 40px 0;
+  border-top: 1px solid var(--rule);
+}
+.work-item:first-child{ border-top: none; padding-top: 0; }
+
+.work-index{
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-faint);
+  padding-top: 6px;
+}
+
+.work-figure img{
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(45%) sepia(8%);
+  border: 1px solid var(--rule);
+}
+
+.work-copy h3{
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.work-copy p{ max-width: 56ch; }
+
+.work-link{
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 13.5px;
+}
+
+@media (max-width: 720px){
+  .work-item{
+    grid-template-columns: 1fr;
+  }
+  .work-index{ padding-top: 0; }
+}
+
+/* =========================================================
+   Experience
+   ========================================================= */
+.exp-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.exp-item{
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 40px);
+  padding: 26px 0;
+  border-top: 1px solid var(--rule);
+}
+.exp-item:first-child{ border-top: none; padding-top: 0; }
+
+.exp-when{
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-faint);
+  padding-top: 4px;
+}
+
+.exp-what h3{ font-size: 19px; margin-bottom: 4px; }
+.exp-org{ color: var(--ink-soft); margin-bottom: 6px !important; }
+
+@media (max-width: 560px){
+  .exp-item{ grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   Contact
+   ========================================================= */
+.contact-list{
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 15px;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer{
+  padding: 28px var(--gutter) 48px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+}
+
+/* =========================================================
+   Responsive: collapse label column on small screens
+   ========================================================= */
+@media (max-width: 720px){
+  .hero{
+    grid-template-columns: 1fr;
+  }
+  .hero-canvas-wrap{
+    max-width: 260px;
+    justify-self: start;
+    margin-top: 8px;
+  }
+  .section{
+    grid-template-columns: 1fr;
+  }
+  .section-label span{
+    position: static;
+  }
+}
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ transition: none !important; }
+}
